@@ -7,5 +7,5 @@ class HelloWorldWidget(QWidget):
 
         layout = QVBoxLayout(self)
 
-        lable = QLabel('Hello World', self)
-        layout.addWidget(lable)
+        label = QLabel('Hello World', self)
+        layout.addWidget(label)
