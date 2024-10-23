@@ -2,24 +2,25 @@ import pathlib
 import pkgutil
 import sys
 import types
+import typing
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QPushButton
 import importlib.util
 
+import dto
 
 class ModulesWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        layout = QVBoxLayout(self)
-        self.__modules_path = pathlib.Path(__file__).resolve().parent / pathlib.Path('modules') / pathlib.Path(
-            '__init__.py')
+        self.layout = QVBoxLayout(self)
+        self.__modules_base_path = pathlib.Path(__file__).resolve().parent / pathlib.Path('modules')
         self.__available_modules = self.__get_available_modules()
 
-        for module_name in self.__available_modules:
-            button = QPushButton(text=module_name, parent=self)
-            button.clicked.connect(lambda checked: self.__load_module(module_name=module_name))
-            layout.addWidget(button)
+        for module in self.__available_modules:
+            button = QPushButton(text=module.name, parent=self)
+            button.clicked.connect(lambda checked: self.layout.addWidget(module.main_window))
+            self.layout.addWidget(button)
 
     def __load_module(self, module_name: str) -> types.ModuleType:
         """
@@ -27,8 +28,13 @@ class ModulesWidget(QWidget):
         :param module_name: the name of the module to load
         :return: the loaded module
         """
+
+        if module_name == 'modules':
+            modules_path = self.__modules_base_path / '__init__.py'
+        else:
+            modules_path = self.__modules_base_path / f'{module_name}.py'
         try:
-            spec = importlib.util.spec_from_file_location(module_name, str(self.__modules_path))
+            spec = importlib.util.spec_from_file_location(module_name, str(modules_path))
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
             sys.modules[module_name] = module
@@ -37,9 +43,14 @@ class ModulesWidget(QWidget):
         except ImportError as e:
             print(f'failed to load module {module_name}: {e}')
 
-    def __get_available_modules(self) -> list[str]:
+    def __get_available_modules(self) -> typing.List[dto.ModuleInfo]:
         modules = self.__load_module('modules')
-        return [name for _, name, _ in pkgutil.iter_modules(modules.__path__)]
+        modules_list: typing.List[dto.ModuleInfo] = []
+        for module_info in pkgutil.iter_modules(modules.__path__):
+            module = self.__load_module(module_info.name)
+            modules_list.append(dto.ModuleInfo.from_module(module))
+
+        return modules_list
 
 
 class MainWindow(QMainWindow):
