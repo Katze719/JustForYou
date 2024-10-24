@@ -1,5 +1,3 @@
-from .ModuleInfo import ModuleInfo
+from . import ModuleInfo
 
-__all__ = [
-    'ModuleInfo'
-]
+__all__ = ["ModuleInfo"]
