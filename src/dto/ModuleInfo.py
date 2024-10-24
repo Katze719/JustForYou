@@ -3,7 +3,7 @@ import types
 from PySide6.QtWidgets import QWidget
 
 
-class ModuleInfo:
+class Details:
     def __init__(self, name: str, description: str, main_window: QWidget):
         self.name = name
         self.description = description
@@ -11,7 +11,11 @@ class ModuleInfo:
 
     @classmethod
     def from_module(cls, module: types.ModuleType):
-        module_name = getattr(module, 'MODULE_NAME', 'Unknown')
-        module_description = getattr(module, 'MODULE_DESCRIPTION', 'No description available')
-        main_window = getattr(module, 'MODULE_MAIN_WINDOW', None)
-        return cls(name=module_name, description=module_description, main_window=main_window)
+        module_name: str = getattr(module, "MODULE_NAME", "Unknown")
+        module_description: str = getattr(
+            module, "MODULE_DESCRIPTION", "No description available"
+        )
+        main_window: QWidget = getattr(module, "MODULE_MAIN_WINDOW")
+        return cls(
+            name=module_name, description=module_description, main_window=main_window
+        )
