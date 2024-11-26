@@ -36,20 +36,35 @@ class ModulesWidget(QWidget):
         self.modules_menu = QMenu("Load Module", self)
         self.menu_bar.addMenu(self.modules_menu)
 
+        # Aktuelles Modul speichern
+        self.current_module_widget = None
+
         # Module in das Menü hinzufügen
         for module in self.__available_modules:
             action = self.modules_menu.addAction(module.name)
             action.triggered.connect(
-                lambda checked, mod=module: self.add_module_widget(mod)
+                lambda checked, mod=module: self.set_module_widget(mod)
             )
 
         # Einstellungen hinzufügen
         self.settings_menu = QMenu("Settings", self)
         self.menu_bar.addMenu(self.settings_menu)
 
-    def add_module_widget(self, module):
-        """Fügt das Hauptfenster des Moduls zum Layout hinzu."""
-        self.layout.addWidget(module.main_window)
+        # Hilfe text hinzufügen
+        self.help_menu = QMenu("Help", self)
+        self.menu_bar.addMenu(self.help_menu)
+
+    def set_module_widget(self, module):
+        """Ersetzt das aktuell angezeigte Modul."""
+        # Aktuelles Widget entfernen
+        if self.current_module_widget is not None:
+            self.layout.removeWidget(self.current_module_widget)
+            self.current_module_widget.deleteLater()
+            self.current_module_widget = None
+
+        # Neues Widget erstellen und hinzufügen
+        self.current_module_widget = module.create_main_window()
+        self.layout.addWidget(self.current_module_widget)
 
     def __load_module(self, module_name: str) -> types.ModuleType:
         """
@@ -57,6 +72,7 @@ class ModulesWidget(QWidget):
         :param module_name: the name of the module to load
         :return: the loaded module
         """
+        print(f"trying to load module: {module_name}")
 
         if module_name == "modules":
             modules_path = self.__modules_base_path / "__init__.py"

@@ -6,7 +6,7 @@ Each module must have a main widget, that encapsulate the module's functionality
 The runtime will search for some metadata:
 - `MODULE_NAME`: The name of the module
 - `MODULE_DESCRIPTION`: The description of the module
-- `MODULE_MAIN_WINDOW`: Instance of the main widget
+- `MODULE_MAIN_WINDOW`: Function with name create_main_window to create the main window
 
 The module must export these variables in order to be loaded correctly.
 
