@@ -33,7 +33,7 @@ class ModulesWidget(QWidget):
         self.layout.setMenuBar(self.menu_bar)
 
         # Menü hinzufügen
-        self.modules_menu = QMenu("Modules", self)
+        self.modules_menu = QMenu("Load Module", self)
         self.menu_bar.addMenu(self.modules_menu)
 
         # Module in das Menü hinzufügen
@@ -42,6 +42,10 @@ class ModulesWidget(QWidget):
             action.triggered.connect(
                 lambda checked, mod=module: self.add_module_widget(mod)
             )
+
+        # Einstellungen hinzufügen
+        self.settings_menu = QMenu("Settings", self)
+        self.menu_bar.addMenu(self.settings_menu)
 
     def add_module_widget(self, module):
         """Fügt das Hauptfenster des Moduls zum Layout hinzu."""
@@ -91,10 +95,11 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
-
-    # Erstelle das Hauptfenster
-    window = MainWindow()
-
-    window.show()
+    main_window = QMainWindow()
+    modules_widget = ModulesWidget()
+    main_window.setCentralWidget(modules_widget)
+    main_window.resize(800, 600)
+    main_window.show()
     sys.exit(app.exec())
