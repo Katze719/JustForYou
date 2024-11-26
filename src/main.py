@@ -13,6 +13,8 @@ from PySide6.QtWidgets import (
     QPushButton,
     QVBoxLayout,
     QWidget,
+    QMenu,
+    QMenuBar,
 )
 
 
@@ -26,12 +28,24 @@ class ModulesWidget(QWidget):
         ).resolve().parent / pathlib.Path("modules")
         self.__available_modules = self.__get_available_modules()
 
+        # Menüleiste erstellen
+        self.menu_bar = QMenuBar(self)
+        self.layout.setMenuBar(self.menu_bar)
+
+        # Menü hinzufügen
+        self.modules_menu = QMenu("Modules", self)
+        self.menu_bar.addMenu(self.modules_menu)
+
+        # Module in das Menü hinzufügen
         for module in self.__available_modules:
-            button = QPushButton(text=module.name, parent=self)
-            button.clicked.connect(
-                lambda checked: self.layout.addWidget(module.main_window)
+            action = self.modules_menu.addAction(module.name)
+            action.triggered.connect(
+                lambda checked, mod=module: self.add_module_widget(mod)
             )
-            self.layout.addWidget(button)
+
+    def add_module_widget(self, module):
+        """Fügt das Hauptfenster des Moduls zum Layout hinzu."""
+        self.layout.addWidget(module.main_window)
 
     def __load_module(self, module_name: str) -> types.ModuleType:
         """
