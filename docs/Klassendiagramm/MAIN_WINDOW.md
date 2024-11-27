@@ -38,7 +38,7 @@ classDiagram
     QMainWindow <|-- MainWindow
     MainWindow --> ModulesWidget
     class MainWindow {
-        +central_widget: ModuleWidget
+        +central_widget: ModulesWidget
         +layout: QVBoxLayout
     }
     
