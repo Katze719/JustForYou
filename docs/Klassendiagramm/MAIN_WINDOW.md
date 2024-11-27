@@ -42,6 +42,13 @@ classDiagram
         +layout: QVBoxLayout
     }
     
+    class ProtokollSpeicher {
+        +load_from(p: Path) JSON
+        +save_to(p: Path, Data: JSON)
+        -__encript_AES(password: str, Data: JSON) str|binary
+        -__decript_AES(password: str, Data: str|binary) JSON
+    }
+    
     QWidget <|-- GrundrechenartenModule
     QWidget <|-- ProzentRechenModule
     QWidget <|-- KreditBerechnungModule
