@@ -57,5 +57,13 @@ classDiagram
     QWidget <|-- SchulModule
     QWidget <|-- informationstechnikModule
     
+    Details --> GrundrechenartenModule
+    Details --> ProzentRechenModule
+    Details --> KreditBerechnungModule
+    Details --> GeometrieModule
+    Details --> MathematischeFunktionenModule
+    Details --> SchulModule
+    Details --> informationstechnikModule
+    
     
 ```

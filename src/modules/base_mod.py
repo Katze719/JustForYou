@@ -11,7 +11,7 @@ class BaseWidget(QWidget):
 
 
 MODULE_NAME='Base Module'
-MODULE_DESCRIPTION='Just a simple hello world module'
+MODULE_DESCRIPTION='Das base rechen modul'
 
 
 # Funktion, die ein neues Widget erstellt

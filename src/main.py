@@ -41,7 +41,7 @@ class ModulesWidget(QWidget):
 
         # Module in das Menü hinzufügen
         for module in self.__available_modules:
-            action = self.modules_menu.addAction(module.name)
+            action = self.modules_menu.addAction(f"{module.name}  ({module.description})")
             action.triggered.connect(
                 lambda checked, mod=module: self.set_module_widget(mod)
             )
