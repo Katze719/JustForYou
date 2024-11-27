@@ -42,4 +42,13 @@ classDiagram
         +layout: QVBoxLayout
     }
     
+    QWidget <|-- GrundrechenartenModule
+    QWidget <|-- ProzentRechenModule
+    QWidget <|-- KreditBerechnungModule
+    QWidget <|-- GeometrieModule
+    QWidget <|-- MathematischeFunktionenModule
+    QWidget <|-- SchulModule
+    QWidget <|-- informationstechnikModule
+    
+    
 ```
