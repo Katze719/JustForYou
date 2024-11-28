@@ -23,4 +23,4 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: name-of-artifact
-        path: src/dist/main.exe
+        path: dist/main.exe
