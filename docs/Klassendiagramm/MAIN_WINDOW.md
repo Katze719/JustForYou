@@ -49,13 +49,90 @@ classDiagram
         -__decript_AES(password: str, Data: str|binary) JSON
     }
     
+    class GrundrechenartenModule {
+        +addition(a: double, b: double) double
+        +subtraktion(a: double, b: double) double
+        +multiplikation(a: double, b: double) double
+        +division(a: double, b: double) double
+        +validate_inputs(inputs: List[double]) bool
+        +log_result(input: JSON, output: JSON)
+    }
+
+    class ProzentRechenModule {
+        +prozent_dazu(basis: double, prozent: double) double
+        +prozent_weg(basis: double, prozent: double) double
+        +prozent_davon(basis: double, prozent: double) double
+        +prozent_satz(anteil: double, basis: double) double
+        +validate_inputs(inputs: List[double]) bool
+        +log_result(input: JSON, output: JSON)
+    }
+
+    class KreditBerechnungModule {
+        +monatlicheRate(kreditbetrag: double, zinssatz: double, laufzeit: int) double
+        +gesamtZinsen(kreditbetrag: double, zinssatz: double, laufzeit: int) double
+        +restschuld(kreditbetrag: double, zinssatz: double, laufzeit: int, gezahlteMonate: int) double
+        +validate_inputs(inputs: List[double]) bool
+        +log_result(input: JSON, output: JSON)
+    }
+
+    class GeometrieModule {
+        +flaecheKreis(radius: double) double
+        +umfangKreis(radius: double) double
+        +flaecheRechteck(laenge: double, breite: double) double
+        +umfangRechteck(laenge: double, breite: double) double
+        +volumenQuader(laenge: double, breite: double, hoehe: double) double
+        +validate_triangle(a: double, b: double, c: double) bool
+        +validate_inputs(inputs: List[double]) bool
+        +log_result(input: JSON, output: JSON)
+    }
+
+    class MathematischeFunktionenModule {
+        +fakultaet(n: int) int
+        +potenz(basis: double, exponent: double) double
+        +wurzel(wert: double) double
+        +logarithmus(wert: double, basis: double) double
+        +sinus(winkel: double) double
+        +cosinus(winkel: double) double
+        +is_prime(n: int) bool
+        +validate_inputs(inputs: List[double]) bool
+        +log_result(input: JSON, output: JSON)
+    }
+
+    class SchulModule {
+        +berechne_durchschnitt(notensammlung: List[int]) double
+        +validate_grades(notensammlung: List[int]) bool
+        +error_handling(input: str) str
+        +log_result(input: JSON, output: JSON)
+    }
+
+    class InformationstechnikModule {
+        +dezimalZuBinär(wert: int) string
+        +binärZuDezimal(wert: string) int
+        +hexZuDezimal(wert: string) int
+        +dezimalZuHex(wert: int) string
+        +asciiZuText(code: string) string
+        +textZuAscii(text: string) string
+        +calculate_storage(breite: int, hoehe: int, farbtiefe: int, fps: int) string
+        +convert_numbers(number: int, base: str) string
+        +validate_inputs(inputs: List[Union[int, str]]) bool
+        +log_result(input: JSON, output: JSON)
+    }
+
+    ProtokollSpeicher <.. GrundrechenartenModule
+    ProtokollSpeicher <.. ProzentRechenModule
+    ProtokollSpeicher <.. KreditBerechnungModule
+    ProtokollSpeicher <.. GeometrieModule
+    ProtokollSpeicher <.. MathematischeFunktionenModule
+    ProtokollSpeicher <.. SchulModule
+    ProtokollSpeicher <.. InformationstechnikModule
+
     QWidget <|-- GrundrechenartenModule
     QWidget <|-- ProzentRechenModule
     QWidget <|-- KreditBerechnungModule
     QWidget <|-- GeometrieModule
     QWidget <|-- MathematischeFunktionenModule
     QWidget <|-- SchulModule
-    QWidget <|-- informationstechnikModule
+    QWidget <|-- InformationstechnikModule
     
     Details --> GrundrechenartenModule
     Details --> ProzentRechenModule
@@ -63,7 +140,5 @@ classDiagram
     Details --> GeometrieModule
     Details --> MathematischeFunktionenModule
     Details --> SchulModule
-    Details --> informationstechnikModule
-    
-    
+    Details --> InformationstechnikModule    
 ```
