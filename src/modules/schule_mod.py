@@ -7,6 +7,7 @@ class SchoolWidget(QWidget):
         super().__init__()
 
         layout = QVBoxLayout(self)
+
         self.display = QLineEdit()
         self.display.setReadOnly(True)
         layout.addWidget(self.display)
@@ -17,12 +18,11 @@ class SchoolWidget(QWidget):
             '', 'CE', 'C',
             '4', '5', '6',
             '1', '2', '3',
-            '0', ',', '', '='
+            '>', ',', '='
         ]
 
         row = 0
         col = 0
-        ord = 0
 
         for button in buttons:
             btn = QPushButton(button)
@@ -34,13 +34,24 @@ class SchoolWidget(QWidget):
                 btn.clicked.connect(partial(self.appendToDisplay, button))
 
             buttonsLayout.addWidget(btn, row, col)
-            ## mudar aqui depois para adcionar o = grande
+
             col += 1
             if col > 2:
                 col = 0
                 row += 1
 
         layout.addLayout(buttonsLayout)
+
+        self.display2Label = QLabel()
+        self.display2Label.setText('Anleitung')
+        layout.addWidget(self.display2Label)
+
+        self.display2 = QLineEdit()
+        self.display2.setText('1. Geben Sie eine Note ein\n 2. Drucken Sie den Button ">" um weitere Noten einzugeben\n 3. Drucken Sie den Button "=" um die Endnote zu berechen\n 4. Die Endnote erscheint auf dem Display')
+        self.display2.setMinimumSize(0, 150)
+        self.display2.setReadOnly(True)
+        layout.addWidget(self.display2)
+
         self.setLayout(layout)
 
     def appendToDisplay(self, char):
