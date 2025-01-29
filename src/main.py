@@ -5,28 +5,33 @@ import sys
 import types
 import typing
 
+from helpers.fontSizeDialog import FontSizeDialog
+
 from dto import ModuleInfo
 
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
-    QPushButton,
     QVBoxLayout,
     QWidget,
     QMenu,
     QMenuBar,
 )
 
-
+from PySide6.QtGui import QAction
+from qt_material import apply_stylesheet, list_themes
 class ModulesWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-
         self.layout: QVBoxLayout = QVBoxLayout(self)
         self.__modules_base_path = pathlib.Path(
             __file__
         ).resolve().parent / pathlib.Path("modules")
         self.__available_modules = self.__get_available_modules()
+
+        # Standardwerte für Einstellungen
+        self.current_theme = "dark_teal.xml"
+        self.font_size = 12  # Standard-Schriftgröße
 
         # Menüleiste erstellen
         self.menu_bar = QMenuBar(self)
@@ -50,9 +55,27 @@ class ModulesWidget(QWidget):
         self.settings_menu = QMenu("Settings", self)
         self.menu_bar.addMenu(self.settings_menu)
 
+        # Theme Auswahl Menü
+        self.theme_menu = QMenu("Select Theme", self)
+        self.settings_menu.addMenu(self.theme_menu)
+
+        # Schriftgrößensteuerung hinzufügen
+        font_size_action = QAction("Font Size", self)
+        font_size_action.triggered.connect(self.open_font_size_dialog)
+        self.settings_menu.addAction(font_size_action)
+
         # Hilfe text hinzufügen
         self.help_menu = QMenu("Help", self)
         self.menu_bar.addMenu(self.help_menu)
+
+        # Verfügbare Themes laden
+        self.available_themes = list_themes()
+
+        # Themes als Menüeinträge hinzufügen
+        for theme in self.available_themes:
+            theme_action = QAction(theme, self)
+            theme_action.triggered.connect(lambda checked, t=theme: self.apply_theme(t))
+            self.theme_menu.addAction(theme_action)
 
     def set_module_widget(self, module):
         """Ersetzt das aktuell angezeigte Modul."""
@@ -65,6 +88,27 @@ class ModulesWidget(QWidget):
         # Neues Widget erstellen und hinzufügen
         self.current_module_widget = module.create_main_window()
         self.layout.addWidget(self.current_module_widget)
+
+    def apply_theme(self, theme_name):
+        """Wendet das ausgewählte Theme an und erkennt helle Themes."""
+        self.current_theme = theme_name
+
+        # Prüfen, ob es sich um ein "light"-Theme handelt
+        if "light" in theme_name:
+            apply_stylesheet(self.window(), theme_name, invert_secondary=True)
+        else:
+            apply_stylesheet(self.window(), theme_name)
+
+    def open_font_size_dialog(self):
+        """Öffnet das Fenster zur Schriftgrößenanpassung."""
+        self.font_size_dialog = FontSizeDialog(self)
+        self.font_size_dialog.exec()
+
+    def change_font_size(self, value, label):
+        """Ändert die Schriftgröße basierend auf dem Slider-Wert."""
+        self.font_size = value
+        label.setText(f"Font Size: {self.font_size}")
+        self.setStyleSheet(f"font-size: {self.font_size}px;")
 
     def __load_module(self, module_name: str) -> types.ModuleType:
         """
@@ -103,7 +147,6 @@ class ModulesWidget(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
         # Hauptlayout des Fensters
         self.central_widget = ModulesWidget(parent=self)
         self.layout = QVBoxLayout(self.central_widget)
@@ -111,11 +154,11 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
-
     app = QApplication(sys.argv)
     main_window = QMainWindow()
     modules_widget = ModulesWidget()
     main_window.setCentralWidget(modules_widget)
     main_window.resize(800, 600)
+    apply_stylesheet(main_window, 'dark_teal.xml')
     main_window.show()
     sys.exit(app.exec())
