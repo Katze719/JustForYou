@@ -155,10 +155,13 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setApplicationName("JustForYou - Calc")
+    app.setOrganizationName("XYZ")
+    app.setApplicationVersion("0.1.0")
+
     main_window = QMainWindow()
     modules_widget = ModulesWidget()
     main_window.setCentralWidget(modules_widget)
-    main_window.resize(800, 600)
     apply_stylesheet(main_window, 'dark_teal.xml')
     main_window.show()
     sys.exit(app.exec())
