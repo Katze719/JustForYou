@@ -5,7 +5,6 @@ import re
 class ProzentCalcWidget(QWidget):
     def __init__(self):
         super().__init__()
-
         # Hauptlayout
         main_layout = QVBoxLayout(self)
 
