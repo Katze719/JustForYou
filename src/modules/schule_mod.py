@@ -1,6 +1,6 @@
 import sys
 from functools import partial
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication,  QGridLayout, QPushButton, QLineEdit
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QApplication,  QGridLayout, QPushButton, QLineEdit, QTextEdit
 
 class SchoolWidget(QWidget):
     def __init__(self):
@@ -42,17 +42,23 @@ class SchoolWidget(QWidget):
 
         layout.addLayout(buttonsLayout)
 
-        self.display2Label = QLabel()
-        self.display2Label.setText('Anleitung')
-        layout.addWidget(self.display2Label)
+        # Hilfe-Bereich
+        help_layout = QVBoxLayout()
+        help_label = QLabel("Hilfe", self)
+        help_label.setStyleSheet("font-size: 18px; font-weight: bold; margin-top: 10px;")
+        help_layout.addWidget(help_label)
 
-        self.display2 = QLineEdit()
-        self.display2.setText('1. Geben Sie eine Note ein\n 2. Drucken Sie den Button ">" um weitere Noten einzugeben\n 3. Drucken Sie den Button "=" um die Endnote zu berechen\n 4. Die Endnote erscheint auf dem Display')
-        self.display2.setMinimumSize(0, 150)
-        self.display2.setReadOnly(True)
-        layout.addWidget(self.display2)
+        help_text = QTextEdit(self)
+        help_text.setReadOnly(True)
+        help_text.setText(
+            "1. Geben Sie eine Note ein\n"
+            "2. Drucken Sie den Button \">\" um weitere Noten einzugeben\n"
+            "3. Drucken Sie den Button \"=\" um die Endnote zu berechen\n"
+            "4. Die Endnote erscheint auf dem Display"
+        )
+        help_layout.addWidget(help_text)
 
-        self.setLayout(layout)
+        layout.addLayout(help_layout)
 
     def appendToDisplay(self, char):
         self.display.setText(self.display.text() + char)
