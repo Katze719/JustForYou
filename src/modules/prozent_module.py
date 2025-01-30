@@ -86,6 +86,13 @@ class ProzentCalcWidget(QWidget):
                 self.input_display.setText(f"-{current_text}")
             return
 
+        if text == 'Brutto':
+            self.input_display.setText(f"{float(current_text) * 1.19:.2f}")
+            return
+        if text == 'Netto':
+            self.input_display.setText(f"{float(current_text) / 1.19:.2f}")
+            return
+
         if current_text == '0':
             current_text = ''
 
