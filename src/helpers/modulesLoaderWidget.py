@@ -49,6 +49,9 @@ class ModulesLoaderWidget(QWidget):
 
         # Module in das Menü hinzufügen
         for module in self.__available_modules:
+            if module.name == "start":
+                self.set_module_widget(module)
+                continue
             action = self.modules_menu.addAction(f"{module.name}  ({module.description})")
             action.setData(module)
             action.triggered.connect(
