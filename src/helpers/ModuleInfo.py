@@ -13,11 +13,12 @@ class Details:
         module_description: str = getattr(
             module, "MODULE_DESCRIPTION", "No description available"
         )
-        create_main_window: callable = getattr(module, "MODULE_MAIN_WINDOW")
-        if not callable(create_main_window):
+        create_main_window_: callable = getattr(module, "MODULE_MAIN_WINDOW", lambda: None)
+
+        if not callable(create_main_window_):
             raise ValueError(f"MODULE_MAIN_WINDOW in {module.__name__} is not callable")
         return cls(
             name=module_name,
             description=module_description,
-            create_main_window=create_main_window
+            create_main_window=create_main_window_
         )
