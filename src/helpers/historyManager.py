@@ -1,7 +1,7 @@
 import json
 import pathlib
 from typing import List, Dict, Any
-from . import AES
+from src.helpers import AES
 
 class HistoryManager:
     def __init__(self, historyFile: str):

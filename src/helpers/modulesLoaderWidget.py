@@ -4,6 +4,7 @@ import pkgutil
 import sys
 import types
 import typing
+import os
 
 from .fontSizeDialog import FontSizeDialog
 
@@ -24,13 +25,14 @@ class ModulesLoaderWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.layout: QVBoxLayout = QVBoxLayout(self)
-        self.__modules_base_path = pathlib.Path(
+        self.__modules_base_path = (pathlib.Path(
             __file__
-        ).resolve().parent.parent / pathlib.Path("modules")
+        ).parent.parent / pathlib.Path("modules")).resolve()
+
         self.__available_modules = self.__get_available_modules()
 
         # Standardwerte für Einstellungen
-        self.current_theme = "dark_teal.xml"
+        self.current_theme = "light_blue.xml"
         self.font_size = 12  # Standard-Schriftgröße
 
         # Menüleiste erstellen

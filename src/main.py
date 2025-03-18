@@ -26,6 +26,6 @@ if __name__ == "__main__":
     main_window = QMainWindow()
     modules_widget = ModulesLoaderWidget()
     main_window.setCentralWidget(modules_widget)
-    apply_stylesheet(main_window, 'dark_teal.xml')
+    apply_stylesheet(main_window, 'light_blue.xml', invert_secondary=True)
     main_window.show()
     sys.exit(app.exec())
