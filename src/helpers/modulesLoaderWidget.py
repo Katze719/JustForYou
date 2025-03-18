@@ -4,8 +4,7 @@ import pkgutil
 import sys
 import types
 import typing
-import copy
-from src.helpers import customMenu
+import os
 
 from .fontSizeDialog import FontSizeDialog
 
@@ -26,13 +25,14 @@ class ModulesLoaderWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.layout: QVBoxLayout = QVBoxLayout(self)
-        self.__modules_base_path = pathlib.Path(
+        self.__modules_base_path = (pathlib.Path(
             __file__
-        ).resolve().parent.parent / pathlib.Path("modules")
+        ).parent.parent / pathlib.Path("modules")).resolve()
+
         self.__available_modules = self.__get_available_modules()
 
         # Standardwerte für Einstellungen
-        self.current_theme = "dark_teal.xml"
+        self.current_theme = "light_blue.xml"
         self.font_size = 12  # Standard-Schriftgröße
 
         # Menüleiste erstellen
@@ -40,8 +40,7 @@ class ModulesLoaderWidget(QWidget):
         self.layout.setMenuBar(self.menu_bar)
 
         # Menü hinzufügen
-        #self.modules_menu = QMenu("Load Module", self)
-        self.modules_menu = customMenu.CustomMenu("Load Module", self)
+        self.modules_menu = QMenu("Load Module", self)
         self.menu_bar.addMenu(self.modules_menu)
 
         # Aktuelles Modul speichern
@@ -53,7 +52,6 @@ class ModulesLoaderWidget(QWidget):
                 self.set_module_widget(module)
                 continue
             action = self.modules_menu.addAction(f"{module.name}  ({module.description})")
-            action.setData(module)
             action.triggered.connect(
                 lambda checked, mod=module: self.set_module_widget(mod)
             )
@@ -84,23 +82,17 @@ class ModulesLoaderWidget(QWidget):
             theme_action.triggered.connect(lambda checked, t=theme: self.apply_theme(t))
             self.theme_menu.addAction(theme_action)
 
-    def set_module_widget(self, module, right_click: bool = False):
+    def set_module_widget(self, module):
         """Ersetzt das aktuell angezeigte Modul."""
         # Aktuelles Widget entfernen
-        if self.current_module_widget is not None and right_click is False:
+        if self.current_module_widget is not None:
             self.layout.removeWidget(self.current_module_widget)
             self.current_module_widget.deleteLater()
             self.current_module_widget = None
 
         # Neues Widget erstellen und hinzufügen
-        if right_click:
-            t = ModulesLoaderWidget()
-            t.apply_theme(self.current_theme)
-            t.set_module_widget(module)
-            t.show()
-        else:
-            self.current_module_widget = module.create_main_window()
-            self.layout.addWidget(self.current_module_widget)
+        self.current_module_widget = module.create_main_window()
+        self.layout.addWidget(self.current_module_widget)
 
     def apply_theme(self, theme_name):
         """Wendet das ausgewählte Theme an und erkennt helle Themes."""
