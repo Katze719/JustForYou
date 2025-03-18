@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 import os
 
+
 # Hilfsfunktion zum Erstellen eines Schlüssels aus einem Passwort
 def derive_key(password: str, salt: bytes) -> bytes:
     kdf = PBKDF2HMAC(
@@ -16,8 +17,9 @@ def derive_key(password: str, salt: bytes) -> bytes:
     )
     return kdf.derive(password.encode())
 
+
 # Verschlüsseln der JSON-Datei
-def encrypt_json(data: dict, password: str, output_file: str):
+def encrypt_json(data, password: str, output_file: str):
     # JSON zu String serialisieren
     json_data = json.dumps(data).encode()
 
@@ -39,8 +41,9 @@ def encrypt_json(data: dict, password: str, output_file: str):
     with open(output_file, 'wb') as f:
         f.write(salt + iv + encryptor.tag + ciphertext)
 
+
 # Entschlüsseln der Datei und Rückgabe als dict
-def decrypt_json(password: str, input_file: str) -> dict:
+def decrypt_json(password: str, input_file: str):
     # Datei lesen
     with open(input_file, 'rb') as f:
         file_data = f.read()
