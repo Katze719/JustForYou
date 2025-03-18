@@ -34,10 +34,3 @@ class HistoryManager:
     def clear_history(self):
         """Löscht die gesamte Rechnungs-History."""
         self._save([])
-
-# Beispielverwendung:
-if __name__ == "__main__":
-    manager = HistoryManager("history.json")
-    manager.add_entry("2 + 2", 4)
-    manager.add_entry("5 * 3", 15)
-    print(manager.get_history())
