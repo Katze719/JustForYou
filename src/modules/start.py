@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem
-#from src.helpers import historyManager
+from src.helpers import historyManager
 
 class InvoiceHistoryWidget(QWidget):
     def __init__(self):

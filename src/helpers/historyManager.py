@@ -3,9 +3,10 @@ import pathlib
 from typing import List, Dict, Any
 from src.helpers import AES
 
+
 class HistoryManager:
-    def __init__(self, historyFile: str):
-        self.historyFile = pathlib.Path(historyFile)
+    def __init__(self, history_file: str):
+        self.historyFile = pathlib.Path(history_file)
         if not self.historyFile.exists():
             self._save([])  # Falls Datei nicht existiert, leere Liste speichern
 
