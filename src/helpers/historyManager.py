@@ -34,3 +34,7 @@ class HistoryManager:
     def clear_history(self):
         """Löscht die gesamte Rechnungs-History."""
         self._save([])
+
+
+if __name__ == "__main__":
+    a = HistoryManager("./test.bin")
