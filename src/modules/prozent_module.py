@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QHBoxLayout, QTextEdit
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QHBoxLayout, QTextEdit, QApplication
 from PySide6.QtCore import Qt
 import re
 
@@ -74,6 +74,14 @@ class ProzentCalcWidget(QWidget):
     def on_button_click(self, text):
         current_text = self.input_display.text()
         print(text)
+
+        if text == "COPY":
+            QApplication.clipboard().setText(self.output_display.text())
+            return
+        if text == "PASTE":
+            current_text = self.input_display.text() + QApplication.clipboard().text()
+            text = ""
+
         if text in {'C', 'CE'}:
             self.input_display.setText('0')
             self.output_display.setText('')
