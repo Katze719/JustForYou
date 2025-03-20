@@ -19,7 +19,7 @@ class FontSizeDialog(QDialog):
 
         self.font_slider = QSlider(Qt.Horizontal, self)
         self.font_slider.setMinimum(8)
-        self.font_slider.setMaximum(24)
+        self.font_slider.setMaximum(1000)
         self.font_slider.setValue(parent.font_size)
         self.font_slider.valueChanged.connect(lambda value: parent.change_font_size(value, self.font_size_label))
         self.layout.addWidget(self.font_slider)
