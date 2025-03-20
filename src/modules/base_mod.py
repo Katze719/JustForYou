@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout, QPushButton, QTextEdit
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QGridLayout, QPushButton, QTextEdit, QApplication
 from PySide6.QtCore import Qt
 from src.helpers import parser
 
@@ -62,6 +62,13 @@ class BaseWidget(QWidget):
     def on_button_click(self, text):
         current_text = self.input_display.text()
         print(text)
+
+        if text == "COPY":
+            QApplication.clipboard().setText(self.output_display.text())
+            return
+        if text == "PASTE":
+            current_text = self.input_display.text() + QApplication.clipboard().text()
+            text = ""
 
         if text == ' ':
             return
