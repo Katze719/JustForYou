@@ -1,12 +1,15 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QHBoxLayout, QTextEdit, QApplication
 from PySide6.QtCore import Qt
 import re
+from src.helpers import historyManager
 
 class ProzentCalcWidget(QWidget):
     def __init__(self):
         super().__init__()
         # Hauptlayout
         main_layout = QVBoxLayout(self)
+
+        self.history_manager = historyManager.HistoryManager()
 
         # Eingabefeld
         self.input_display = QLabel('0', self)
@@ -119,6 +122,7 @@ class ProzentCalcWidget(QWidget):
             self.output_display.setText(f"{result:.2f}")
 
             if text == '=':
+                self.history_manager.add_entry(self.input_display.text(), self.output_display.text())
                 self.input_display.setText(self.output_display.text())
         except Exception:
             print("error")
