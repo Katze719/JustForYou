@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem
 from src.helpers import historyManager
 import pathlib
+import json
 
 
 class InvoiceHistoryWidget(QWidget):
@@ -8,7 +9,7 @@ class InvoiceHistoryWidget(QWidget):
         super().__init__()
         layout = QVBoxLayout(self)
 
-        self.historyManager = historyManager.HistoryManager("test.bin")
+        self.historyManager = historyManager.HistoryManager()
 
         label = QLabel('Rechnungs-Historie:', self)
         layout.addWidget(label)
@@ -28,7 +29,7 @@ class InvoiceHistoryWidget(QWidget):
     def set_invoice_history(self, invoices):
         """Setzt die Rechnungsdaten als einfachen Text in die Label-Textbox."""
         self.historyManager.add_entry("2 * 2", "4")
-        self.history_label.setText(str(self.historyManager.get_history()))
+        self.history_label.setText(self.historyManager.get_history_fmt())
         pass
 
 
