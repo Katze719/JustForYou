@@ -28,7 +28,7 @@ class ProzentCalcWidget(QWidget):
             ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('%', 2, 3),
             ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('%-', 3, 3),
             ('0', 4, 0), ('.', 4, 1), ('%+', 4, 2), ('=', 4, 3),
-            ('Netto', 0, 4)
+            ('Netto', 0, 4), ('COPY', 1, 4), ('PASTE', 2, 4)
         ]
 
         for text, row, col in buttons:
@@ -79,7 +79,10 @@ class ProzentCalcWidget(QWidget):
             QApplication.clipboard().setText(self.output_display.text())
             return
         if text == "PASTE":
-            current_text = self.input_display.text() + QApplication.clipboard().text()
+            if current_text == '0':
+                current_text = QApplication.clipboard().text()
+            else:
+                current_text = self.input_display.text() + QApplication.clipboard().text()
             text = ""
 
         if text in {'C', 'CE'}:

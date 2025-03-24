@@ -67,7 +67,10 @@ class BaseWidget(QWidget):
             QApplication.clipboard().setText(self.output_display.text())
             return
         if text == "PASTE":
-            current_text = self.input_display.text() + QApplication.clipboard().text()
+            if current_text == '0':
+                current_text = QApplication.clipboard().text()
+            else:
+                current_text = self.input_display.text() + QApplication.clipboard().text()
             text = ""
 
         if text == ' ':
