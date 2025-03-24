@@ -28,7 +28,6 @@ class InvoiceHistoryWidget(QWidget):
 
     def set_invoice_history(self, invoices):
         """Setzt die Rechnungsdaten als einfachen Text in die Label-Textbox."""
-        self.historyManager.add_entry("2 * 2", "4")
         self.history_label.setText(self.historyManager.get_history_fmt())
         pass
 
