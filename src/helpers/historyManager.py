@@ -35,7 +35,7 @@ class HistoryManager:
 
     def get_history_fmt(self) -> str:
         data = self._load()
-        data_fmt = [f"{row["date"]} E: {row["expression"]} --> {row["result"]}\n" for row in data]
+        data_fmt = [f"{row["date"]} E: {row["expression"]} = {row["result"]}\n" for row in data]
         result = ""
         data_fmt.reverse()
         for d in data_fmt:
