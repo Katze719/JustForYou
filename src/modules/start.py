@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem, QTextEdit
 from src.helpers import historyManager
 import pathlib
 import json
@@ -15,25 +15,15 @@ class InvoiceHistoryWidget(QWidget):
         layout.addWidget(label)
 
         # Textbox für die Rechnungsdaten
-        self.history_label = QLabel(self)
-        self.history_label.setWordWrap(True)  # Zeilenumbruch aktivieren
+        self.history_label = QTextEdit(self)
+        self.history_label.setReadOnly(True)
         layout.addWidget(self.history_label)
 
-        # Beispiel-Daten setzen
-        self.set_invoice_history([
-            ("2024-001", "01.03.2024", "100.00€"),
-            ("2024-002", "05.03.2024", "250.50€"),
-            ("2024-003", "10.03.2024", "75.00€"),
-        ])
-
-    def set_invoice_history(self, invoices):
-        """Setzt die Rechnungsdaten als einfachen Text in die Label-Textbox."""
         self.history_label.setText(self.historyManager.get_history_fmt())
-        pass
 
 
 MODULE_NAME = 'start'
-MODULE_DESCRIPTION = 'Just a simple hello world module'
+MODULE_DESCRIPTION = 'Deine Historie'
 
 
 # Funktion, die ein neues Widget erstellt
