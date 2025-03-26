@@ -1,9 +1,11 @@
 import sys
+import pathlib
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
     QVBoxLayout,
 )
+from PySide6.QtGui import QIcon
 from helpers.modulesLoaderWidget import ModulesLoaderWidget
 from qt_material import apply_stylesheet
 
@@ -24,6 +26,7 @@ if __name__ == "__main__":
     app.setApplicationVersion("0.1.0")
 
     main_window = QMainWindow()
+    main_window.setWindowIcon(QIcon(f"{pathlib.Path(__file__).parent}/pics/icon.png"))
     modules_widget = ModulesLoaderWidget()
     main_window.setCentralWidget(modules_widget)
     apply_stylesheet(main_window, 'dark_purple.xml', invert_secondary=True)
