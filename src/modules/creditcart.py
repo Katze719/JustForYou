@@ -164,9 +164,8 @@ class KreditrechnerWidget(QWidget):
 # Modul-Informationen
 MODULE_NAME = 'Kreditrechner'
 MODULE_DESCRIPTION = (
-    'Modul zur Berechnung von Krediten. Unterstützt: '
-    'Einmalige Rückzahlung, Ratenkredit mit vorgegebener Laufzeit und '
-    'Ratenkredit mit vorgegebener Rate.'
+    'Modul zur Berechnung von Krediten. Unterstützt'
+
 )
 
 
