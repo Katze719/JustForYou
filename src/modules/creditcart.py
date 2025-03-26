@@ -55,6 +55,24 @@ class KreditrechnerWidget(QWidget):
         self.credit_type_combo.currentIndexChanged.connect(self.update_fields)
         self.update_fields(self.credit_type_combo.currentIndex())
 
+        # Hilfe-Bereich
+        self.help_label = QLabel("Hilfe", self)
+        self.help_label.setStyleSheet("font-size: 18px; font-weight: bold; margin-top: 10px;")
+        layout.addWidget(self.help_label)
+
+        self.help_text = QTextEdit(self)
+        self.help_text.setReadOnly(True)
+        self.help_text.setText(
+            "Kreditrechner Hilfe:\n"
+            "- Kreditbetrag: Der Hauptbetrag des Kredits.\n"
+            "- Zinssatz: Der jährliche Zinssatz in Prozent.\n"
+            "- Laufzeit: Die Kreditlaufzeit in Monaten (bei Einmalzahlung bzw. vorgegebener Laufzeit).\n"
+            "- Rate: Die monatliche Rückzahlung (bei Vorgabe der Rate).\n"
+            "- Wählen Sie die Kreditart aus, um die entsprechende Berechnung durchzuführen."
+        )
+        layout.addWidget(self.help_text)
+
+
     def update_fields(self, index):
         """
         Schaltet die Eingabefelder ein/aus:

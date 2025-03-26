@@ -13,13 +13,13 @@ class ProzentCalcWidget(QWidget):
 
         # Eingabefeld
         self.input_display = QLineEdit("0")
-        self.input_display.setStyleSheet("font-size: 20px; padding: 7px; background: lightgray; border: 1px solid black; border-radius: 4px;")
+        self.input_display.setStyleSheet("font-size: 20px; padding: 7px;")
         self.input_display.setAlignment(Qt.AlignmentFlag.AlignRight)
         main_layout.addWidget(self.input_display)
 
         # Ausgabefeld
         self.output_display = QLabel('', self)
-        self.output_display.setStyleSheet("font-size: 20px; padding: 10px; background: gray; border: 1px solid black;")
+        self.output_display.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
         self.output_display.setAlignment(Qt.AlignmentFlag.AlignRight)
         main_layout.addWidget(self.output_display)
 
