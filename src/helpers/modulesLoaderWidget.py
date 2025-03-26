@@ -33,7 +33,7 @@ class ModulesLoaderWidget(QWidget):
         self.__available_modules = self.__get_available_modules()
 
         # Standardwerte für Einstellungen
-        self.current_theme = "light_blue.xml"
+        self.current_theme = "dark_purple.xml"
         self.font_size = 12  # Standard-Schriftgröße
 
         # Menüleiste erstellen
