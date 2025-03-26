@@ -121,6 +121,7 @@ class ModulesLoaderWidget(QWidget):
         self.font_size = value
         label.setText(f"Font Size: {self.font_size}")
         self.setStyleSheet(f"font-size: {self.font_size}px;")
+        self.apply_theme(self.current_theme)
 
     def __load_module(self, module_name: str) -> types.ModuleType:
         """
