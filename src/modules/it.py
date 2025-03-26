@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QLineEdit,
+    QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QLineEdit, QTextEdit,
     QPushButton, QTabWidget, QComboBox
 )
 from math import floor
@@ -16,24 +16,24 @@ class VideoCalculatorWidget(QWidget):
 
         form_layout = QFormLayout()
         self.bitdepth_edit = QLineEdit()
-        self.bitdepth_edit.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
+        self.bitdepth_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Farbtiefe (Bit):", self.bitdepth_edit)
 
         self.width_edit = QLineEdit()
-        self.width_edit.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
+        self.width_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Breite (Pixel):", self.width_edit)
 
         self.height_edit = QLineEdit()
-        self.height_edit.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
+        self.height_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Höhe (Pixel):", self.height_edit)
 
         self.fps_edit = QLineEdit()
-        self.fps_edit.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
+        self.fps_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Bilder/s:", self.fps_edit)
 
         # Optionale Eingabe: Videolänge in Sekunden (Default = 1 s)
         self.duration_edit = QLineEdit()
-        self.duration_edit.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
+        self.duration_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         self.duration_edit.setPlaceholderText("Standard: 1 Sekunde")
         form_layout.addRow("Videolänge (Sekunden):", self.duration_edit)
 
@@ -43,7 +43,8 @@ class VideoCalculatorWidget(QWidget):
         layout.addWidget(self.calc_button)
         self.calc_button.clicked.connect(self.calculate)
 
-        self.result_label = QLabel("")
+        self.result_label = QTextEdit(self)
+        self.result_label.setReadOnly(True)
         layout.addWidget(self.result_label)
 
     def calculate(self):
@@ -115,10 +116,12 @@ class ZahlensystemWidget(QWidget):
         form_layout = QFormLayout()
 
         self.number_edit = QLineEdit()
+        self.number_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Zahl:", self.number_edit)
 
         # Auswahl, in welchem System die Eingabe erfolgt
         self.input_system_combo = QComboBox()
+        self.input_system_combo.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         self.input_system_combo.addItems(["Dezimal", "Binär", "Ternär", "Oktal"])
         form_layout.addRow("Eingabesystem:", self.input_system_combo)
 
@@ -128,7 +131,8 @@ class ZahlensystemWidget(QWidget):
         layout.addWidget(self.convert_button)
         self.convert_button.clicked.connect(self.convert)
 
-        self.result_label = QLabel("")
+        self.result_label = QTextEdit(self)
+        self.result_label.setReadOnly(True)
         layout.addWidget(self.result_label)
 
     def convert(self):
@@ -182,10 +186,12 @@ class DatenmengenWidget(QWidget):
 
         form_layout = QFormLayout()
         self.value_edit = QLineEdit()
+        self.value_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Menge:", self.value_edit)
 
         # Auswahl der Eingabeeinheit
         self.unit_combo = QComboBox()
+        self.unit_combo.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         self.unit_combo.addItems(["Byte", "KB", "KiB", "MB", "MiB", "GB", "GiB"])
         form_layout.addRow("Einheit:", self.unit_combo)
 
@@ -195,7 +201,8 @@ class DatenmengenWidget(QWidget):
         layout.addWidget(self.convert_button)
         self.convert_button.clicked.connect(self.convert)
 
-        self.result_label = QLabel("")
+        self.result_label = QTextEdit(self)
+        self.result_label.setReadOnly(True)
         layout.addWidget(self.result_label)
 
     def convert(self):
@@ -281,10 +288,7 @@ class InformationstechnikWidget(QTabWidget):
 # -----------------------------
 MODULE_NAME = "Informationstechnik"
 MODULE_DESCRIPTION = (
-    "Modul für Berechnungen im Bereich Informationstechnik:\n"
-    "- Grafikspeicher / Videodateigröße (Umrechnung in Binär- und Dezimalpräfixen),\n"
-    "- Umrechnung zwischen Zahlensystemen (Eingabe in Dezimal, Binär, Ternär oder Oktal) und Ausgabe in allen Systemen sowie\n"
-    "- Umrechnung von Datenmengen (Eingabe in verschiedenen Einheiten wie Byte, KB, KiB, MB, MiB, GB, GiB)."
+    "Modul für Berechnungen im Bereich Informationstechnik"
 )
 
 

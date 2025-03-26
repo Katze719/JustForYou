@@ -14,7 +14,7 @@ class SchoolWidget(QWidget):
         layout = QVBoxLayout(self)
 
         # Eingabefeld
-        self.input_display = QLabel('0', self)
+        self.input_display = QLineEdit("0")
         self.input_display.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
         self.input_display.setAlignment(Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.input_display)

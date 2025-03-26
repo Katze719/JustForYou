@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QHBoxLayout, QTextEdit, QApplication
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QHBoxLayout, QTextEdit, QApplication, QLineEdit
 from PySide6.QtCore import Qt
 import re
 from src.helpers import historyManager
@@ -12,8 +12,8 @@ class ProzentCalcWidget(QWidget):
         self.history_manager = historyManager.HistoryManager()
 
         # Eingabefeld
-        self.input_display = QLabel('0', self)
-        self.input_display.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
+        self.input_display = QLineEdit("0")
+        self.input_display.setStyleSheet("font-size: 20px; padding: 7px; background: lightgray; border: 1px solid black; border-radius: 4px;")
         self.input_display.setAlignment(Qt.AlignmentFlag.AlignRight)
         main_layout.addWidget(self.input_display)
 
