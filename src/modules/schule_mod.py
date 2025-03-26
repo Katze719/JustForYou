@@ -15,25 +15,25 @@ class SchoolWidget(QWidget):
 
         # Eingabefeld
         self.input_display = QLineEdit("0")
-        self.input_display.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
+        self.input_display.setStyleSheet("font-size: 20px; padding: 10px;")
         self.input_display.setAlignment(Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.input_display)
 
         # Ausgabefeld
         self.output_display = QLabel('', self)
-        self.output_display.setStyleSheet("font-size: 20px; padding: 10px; background: gray; border: 1px solid black;")
+        self.output_display.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
         self.output_display.setAlignment(Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.output_display)
 
         # Ausgabefeld2
         self.output_display2 = QLabel('', self)
-        self.output_display2.setStyleSheet("font-size: 20px; padding: 10px; background: gray; border: 1px solid black;")
+        self.output_display2.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
         self.output_display2.setAlignment(Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.output_display2)
 
         # Ausgabefeld3
         self.output_display3 = QLabel('', self)
-        self.output_display3.setStyleSheet("font-size: 20px; padding: 10px; background: gray; border: 1px solid black;")
+        self.output_display3.setStyleSheet("font-size: 20px; padding: 10px; background: lightgray; border: 1px solid black;")
         self.output_display3.setAlignment(Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.output_display3)
 

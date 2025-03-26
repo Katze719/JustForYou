@@ -16,24 +16,19 @@ class VideoCalculatorWidget(QWidget):
 
         form_layout = QFormLayout()
         self.bitdepth_edit = QLineEdit()
-        self.bitdepth_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Farbtiefe (Bit):", self.bitdepth_edit)
 
         self.width_edit = QLineEdit()
-        self.width_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Breite (Pixel):", self.width_edit)
 
         self.height_edit = QLineEdit()
-        self.height_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Höhe (Pixel):", self.height_edit)
 
         self.fps_edit = QLineEdit()
-        self.fps_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Bilder/s:", self.fps_edit)
 
         # Optionale Eingabe: Videolänge in Sekunden (Default = 1 s)
         self.duration_edit = QLineEdit()
-        self.duration_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         self.duration_edit.setPlaceholderText("Standard: 1 Sekunde")
         form_layout.addRow("Videolänge (Sekunden):", self.duration_edit)
 
@@ -46,6 +41,23 @@ class VideoCalculatorWidget(QWidget):
         self.result_label = QTextEdit(self)
         self.result_label.setReadOnly(True)
         layout.addWidget(self.result_label)
+
+        # Hilfe-Text für diesen Tab
+        self.help_label = QLabel("Hilfe", self)
+        self.help_label.setStyleSheet("font-size: 18px; font-weight: bold; margin-top: 10px;")
+        layout.addWidget(self.help_label)
+
+        self.help_text = QTextEdit(self)
+        self.help_text.setReadOnly(True)
+        self.help_text.setText(
+            "Video & Grafikspeicher Hilfe:\n"
+            "- Farbtiefe: Gibt an, wie viele Bit pro Pixel verwendet werden.\n"
+            "- Breite x Höhe: Die Auflösung des Videos/Bildes in Pixeln.\n"
+            "- Bilder/s: Anzahl der Bilder pro Sekunde.\n"
+            "- Videolänge: Optional, Standard ist 1 Sekunde.\n"
+            "Das Ergebnis wird in Binär- (z.B. KiB, MiB, GiB) und Dezimalpräfix (KB, MB, GB) angegeben."
+        )
+        layout.addWidget(self.help_text)
 
     def calculate(self):
         try:
@@ -116,12 +128,10 @@ class ZahlensystemWidget(QWidget):
         form_layout = QFormLayout()
 
         self.number_edit = QLineEdit()
-        self.number_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Zahl:", self.number_edit)
 
         # Auswahl, in welchem System die Eingabe erfolgt
         self.input_system_combo = QComboBox()
-        self.input_system_combo.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         self.input_system_combo.addItems(["Dezimal", "Binär", "Ternär", "Oktal"])
         form_layout.addRow("Eingabesystem:", self.input_system_combo)
 
@@ -134,6 +144,21 @@ class ZahlensystemWidget(QWidget):
         self.result_label = QTextEdit(self)
         self.result_label.setReadOnly(True)
         layout.addWidget(self.result_label)
+
+        # Hilfe-Text für diesen Tab
+        self.help_label = QLabel("Hilfe", self)
+        self.help_label.setStyleSheet("font-size: 18px; font-weight: bold; margin-top: 10px;")
+        layout.addWidget(self.help_label)
+
+        self.help_text = QTextEdit(self)
+        self.help_text.setReadOnly(True)
+        self.help_text.setText(
+            "Zahlensysteme Hilfe:\n"
+            "- Wählen Sie das Eingabesystem aus (Dezimal, Binär, Ternär oder Oktal).\n"
+            "- Geben Sie die Zahl in dem gewählten System ein.\n"
+            "Das Programm konvertiert die Zahl in alle vier Zahlensysteme."
+        )
+        layout.addWidget(self.help_text)
 
     def convert(self):
         system = self.input_system_combo.currentText()
@@ -186,12 +211,10 @@ class DatenmengenWidget(QWidget):
 
         form_layout = QFormLayout()
         self.value_edit = QLineEdit()
-        self.value_edit.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         form_layout.addRow("Menge:", self.value_edit)
 
         # Auswahl der Eingabeeinheit
         self.unit_combo = QComboBox()
-        self.unit_combo.setStyleSheet("background: lightgray; border: 1px solid black; border-radius: 4px;")
         self.unit_combo.addItems(["Byte", "KB", "KiB", "MB", "MiB", "GB", "GiB"])
         form_layout.addRow("Einheit:", self.unit_combo)
 
@@ -204,6 +227,20 @@ class DatenmengenWidget(QWidget):
         self.result_label = QTextEdit(self)
         self.result_label.setReadOnly(True)
         layout.addWidget(self.result_label)
+
+        # Hilfe-Text für diesen Tab
+        self.help_label = QLabel("Hilfe", self)
+        self.help_label.setStyleSheet("font-size: 18px; font-weight: bold; margin-top: 10px;")
+        layout.addWidget(self.help_label)
+
+        self.help_text = QTextEdit(self)
+        self.help_text.setReadOnly(True)
+        self.help_text.setText(
+            "Datenmengen Umrechnung Hilfe:\n"
+            "- Geben Sie einen Wert und die zugehörige Einheit ein (z.B. Byte, KB, KiB, MB, MiB, GB, GiB).\n"
+            "Das Programm wandelt den Wert in Byte um und rechnet ihn in beide Präfixsysteme (Binär und Dezimal) um."
+        )
+        layout.addWidget(self.help_text)
 
     def convert(self):
         try:
