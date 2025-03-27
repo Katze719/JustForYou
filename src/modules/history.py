@@ -50,6 +50,10 @@ class HistoryWidget(QWidget):
         self.load_history()
         super().mousePressEvent(event)
 
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.load_history()
+
 
 MODULE_NAME = 'Historie'
 MODULE_DESCRIPTION = 'Deine Historie'

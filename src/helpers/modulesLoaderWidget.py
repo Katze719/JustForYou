@@ -83,6 +83,10 @@ class ModulesLoaderWidget(QWidget):
             theme_action.triggered.connect(lambda checked, t=theme: self.apply_theme(t))
             self.theme_menu.addAction(theme_action)
 
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.apply_theme(self.current_theme)
+
     def set_module_widget(self, module, right_click: bool = False):
         """Ersetzt das aktuell angezeigte Modul."""
         # Aktuelles Widget entfernen
