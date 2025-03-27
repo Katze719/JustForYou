@@ -2,7 +2,6 @@ from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QLineEdit, QTextEdit,
     QPushButton, QTabWidget, QComboBox
 )
-from math import floor
 
 
 # -----------------------------

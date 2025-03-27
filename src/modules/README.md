@@ -10,4 +10,4 @@ The runtime will search for some metadata:
 
 The module must export these variables in order to be loaded correctly.
 
-You can have a look at the example [Hello World Module](hello_world.py) as an example.
+You can have a look at the example [Hello World Module](../examples/hello_world.py) as an example.
