@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QTextEdit, QApplication, QHBoxLayout
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QPushButton, QTextEdit, QApplication, QHBoxLayout, QFormLayout,QLineEdit
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QImage, QPixmap
 import re
@@ -12,10 +12,29 @@ class GeometryWidget(QWidget):
 
         self.history_manager = historyManager.HistoryManager()
 
+        formLayout = QFormLayout()
+        #test = self.tr("Umfang: \n"
+         #             "Flächeninhalt: ")
+
         # Eingabefeld
-        self.image = QLabel()
-        self.image.setPixmap(QPixmap(""))
-        main_layout.addWidget(self.image)
+        image = QLabel()
+        image.setPixmap(QPixmap("images\\parallelogram.PNG"))
+        image.setAlignment(Qt.AlignCenter)
+        formLayout.addRow(image)
+
+        aLineEdit = QLineEdit()
+        bLineEdit = QLineEdit()
+        cLineEdit = QLineEdit()
+        dLineEdit = QLineEdit()
+        hLineEdit = QLineEdit()
+
+        formLayout.addRow(self.tr("&a:"), aLineEdit)
+        formLayout.addRow(self.tr("&b:"), bLineEdit)
+        formLayout.addRow(self.tr("&c:"), cLineEdit)
+        formLayout.addRow(self.tr("&d:"), dLineEdit)
+        formLayout.addRow(self.tr("&h:"), hLineEdit)
+
+        main_layout.addLayout(formLayout)
 
         # Ausgabefeld
         self.output_display = QLabel('', self)
@@ -29,8 +48,8 @@ class GeometryWidget(QWidget):
             ('', 0, 0), ('CE', 0, 1), ('C', 0, 2), ('▱', 0, 3),
             ('7', 1, 0), ('8', 1, 1), ('9', 1, 2), ('⃤', 1, 3),
             ('4', 2, 0), ('5', 2, 1), ('6', 2, 2), ('⃝', 2, 3),
-            ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('±', 3, 3),
-            ('0', 4, 0), (',', 4, 1), ('', 4, 2), ('=', 4, 3),
+            ('1', 3, 0), ('2', 3, 1), ('3', 3, 2), ('=', 3, 3),
+            ('0', 4, 0), (',', 4, 1), ('', 4, 2), ('', 4, 3),
         ]
 
         for text, row, col in buttons:
