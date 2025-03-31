@@ -16,6 +16,7 @@ from PySide6.QtWidgets import (
     QWidget,
     QMenu,
     QMenuBar,
+    QFontDialog
 )
 
 from PySide6.QtGui import QAction
@@ -70,6 +71,11 @@ class ModulesLoaderWidget(QWidget):
         font_size_action.triggered.connect(self.open_font_size_dialog)
         self.settings_menu.addAction(font_size_action)
 
+        # Schriftart einstellungen
+        font_action = QAction("Font", self)
+        font_action.triggered.connect(self.open_font_dialog)
+        self.settings_menu.addAction(font_action)
+
         # Hilfe text hinzufügen
         self.help_menu = QMenu("Help", self)
         self.menu_bar.addMenu(self.help_menu)
@@ -119,6 +125,20 @@ class ModulesLoaderWidget(QWidget):
         """Öffnet das Fenster zur Schriftgrößenanpassung."""
         self.font_size_dialog = FontSizeDialog(self)
         self.font_size_dialog.exec()
+
+    def open_font_dialog(self):
+        """Öffnet den FontDialog zur Schriftartauswahl."""
+        # Aktuellen Font als Ausgangswert verwenden
+        current = self.current_font if hasattr(self, 'current_font') else self.font()
+        ok, font = QFontDialog.getFont(current, self, "Schriftart auswählen")
+        if ok:
+            self.current_font = font
+            # Schriftart auf das gesamte Widget anwenden
+            self.setFont(font)
+            # Optional: Stylesheet aktualisieren, um die Schriftart explizit zu setzen
+            self.setStyleSheet(f"font-size: {self.font_size}px; font-family: {font.family()};")
+            # Eventuell auch das Theme neu anwenden, wenn dieses weitere Einstellungen enthält
+            self.apply_theme(self.current_theme)
 
     def change_font_size(self, value, label):
         """Ändert die Schriftgröße basierend auf dem Slider-Wert."""
