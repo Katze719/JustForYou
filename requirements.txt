@@ -13,5 +13,5 @@ PySide6_Addons==6.8.0.1
 PySide6_Essentials==6.8.0.1
 pywin32-ctypes==0.2.3
 qt-material==2.14
-setuptools==75.6.0
+setuptools==78.1.1
 shiboken6==6.8.0.1
